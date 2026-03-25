@@ -1,0 +1,10 @@
+model User {
+  id          String   @id @default(uuid())
+  name        String
+  email       String   @unique
+  createdAt   DateTime @default(now())
+
+  createdDemandes  Demande[]  @relation("CreatedBy")
+  assignedDemandes Demande[]  @relation("AssignedTo")
+  auditLogs        AuditLog[]
+}

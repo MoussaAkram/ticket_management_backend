@@ -1,0 +1,23 @@
+enum AuditAction {
+  CREATED
+  UPDATED
+  STATUS_CHANGED
+  DELETED
+}
+
+model AuditLog {
+  id        String      @id @default(uuid())
+  action    AuditAction
+  metadata  Json        @default("{}")
+
+  demandeId String
+  demande   Demande  @relation(fields: [demandeId], references: [id])
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@index([demandeId])
+  @@index([userId])
+}
